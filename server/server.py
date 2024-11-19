@@ -3,9 +3,10 @@ from flask_cors import CORS
 from tensorflow.keras.models import load_model
 import numpy as np
 import json
-# app instance
+# app instancepyt
 app = Flask(__name__)
 CORS(app)
+print("Loading model")
 
 model = load_model('./tfmodel1.keras')
 
