@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import InputField from './InputField';
+import Notif from './Notif';
 export default function Form() {
 
     const [formData, setFormData] = useState({
@@ -12,15 +13,27 @@ export default function Form() {
     });
 
     const [prediction, setPrediction] = useState('');
-
-    const handleChange= (e) => {
+    const [notifMessage, setNotifMessage] = useState('');
+    
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+    
+        if (value >= 0 || value === '') {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+            setNotifMessage(''); // Clear any existing notification
+        } else {
+            setNotifMessage('No negative values allowed!'); // Set the error message
+        }
     };
 
+    const preventNegative = (e) => {
+        if (e.key === '-' || e.key === 'e' || e.key === '+' || e.key === '.') {
+            e.preventDefault();
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -56,15 +69,19 @@ export default function Form() {
 
   return (
     <div className="Absolute z-0">
+       
     <div className="card mx-auto bloc items-center justify-center border-1 border-black  w-1/2">
+        
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center mt-6">Stress Predictor</h1>
+        {notifMessage && <Notif description={notifMessage} />}
         <p className="mb-6 text-lg font-normal text-center text-gray-500 lg:text-xl sm:px-16 xl:px-48 ">Test your stress level by inputting the neccesary data in the web!</p>
-        <form class="md:w-[300px] lg:w-[520px] mx-auto">
+        <form className="md:w-[300px] lg:w-[520px] mx-auto">
             <InputField
                 label="Study hours per day:"
                 type="number"
                 name="studyHours"
                 value={formData.studyHours}
+                onKeyDown={preventNegative}
                 onChange={handleChange}
                 placeholder="Enter study hours"
                 required
@@ -74,6 +91,7 @@ export default function Form() {
                 type="number"
                 name="extracurricularHours"
                 value={formData.extracurricularHours}
+                onKeyDown={preventNegative}
                 onChange={handleChange}
                 placeholder="Enter extracurricular hours"
                 required={true}
@@ -83,6 +101,7 @@ export default function Form() {
                 type="number"
                 name="sleepHours"
                 value={formData.sleepHours}
+                onKeyDown={preventNegative}
                 onChange={handleChange}
                 placeholder="Enter sleep hours"
                 required={true}
@@ -92,6 +111,7 @@ export default function Form() {
                 type="number"
                 name="socialHours"
                 value={formData.socialHours}
+                onKeyDown={preventNegative}
                 onChange={handleChange}
                 placeholder="Enter social hours"
                 required={true}
@@ -101,6 +121,7 @@ export default function Form() {
                 type="number"
                 name="physicalHours"
                 value={formData.physicalHours}
+                onKeyDown={preventNegative}
                 onChange={handleChange}
                 placeholder="Enter physical activity hours"
                 required={true}
@@ -110,13 +131,15 @@ export default function Form() {
                 type="number"
                 name="gpa"
                 value={formData.gpa}
+                onKeyDown={preventNegative}
                 onChange={handleChange}
                 placeholder="Enter GPA"
                 required={true}
             />
 
             <div className='justify-center flex w-full'>
-            <button type="submit" class="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w-full md:w-full px-5 py-2.5 text-center">PREDICT</button>
+            
+            <button type="submit" className="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w-full md:w-full px-5 py-2.5 text-center">PREDICT</button>
             </div>
         </form>
         
