@@ -55,10 +55,11 @@ export default function Form() {
     }
 
   return (
-    <div className="mx-auto block items-center justify-center border-1 border-black  w-1/2">
+    <div className="Absolute z-0">
+    <div className="card mx-auto bloc items-center justify-center border-1 border-black  w-1/2">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center mt-6">Stress Predictor</h1>
         <p className="mb-6 text-lg font-normal text-center text-gray-500 lg:text-xl sm:px-16 xl:px-48 ">Test your stress level by inputting the neccesary data in the web!</p>
-        <form class="max-w-md mx-auto">
+        <form class="md:w-[300px] lg:w-[520px] mx-auto">
             <InputField
                 label="Study hours per day:"
                 type="number"
@@ -114,8 +115,9 @@ export default function Form() {
                 required={true}
             />
 
-            
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            <div className='justify-center flex w-full'>
+            <button type="submit" class="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w-full md:w-full px-5 py-2.5 text-center">PREDICT</button>
+            </div>
         </form>
         
         {prediction && (
@@ -123,6 +125,7 @@ export default function Form() {
                 <h2>Prediction: {prediction}</h2>
             </div>
         )}
+    </div>
     </div>
   )
 }
