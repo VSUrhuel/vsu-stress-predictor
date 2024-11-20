@@ -9,7 +9,7 @@ export default function Home() {
       <div className="bg-[#146939] w-full h-72 absolute z-0">
 
       </div >
-      <div className="mt-24 w-full">
+      <div className="mt-16 w-full mb-24">
         <Form></Form>
       </div>
       </div>
