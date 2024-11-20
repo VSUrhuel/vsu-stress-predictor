@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from "@nextui-org/react";
 
 const InputField = ({ label, type, value, onChange, placeholder, required }) => {
   return (
