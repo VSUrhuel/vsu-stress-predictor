@@ -16,7 +16,7 @@ export default function Form() {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-
+        console.log(value)
         if (value >= 0 || value === '') {
             setFormData({
                 ...formData,
@@ -24,7 +24,17 @@ export default function Form() {
             })
             setNotifMessage('') // Clear any existing notification
         } else {
-            setNotifMessage('No negative values allowed!') // Set the error message
+            // Clear the input field
+            // Set the error message
+            setTimeout(() => {
+                document.getElementById(name).value = ''
+                console.log(document.getElementById(name).value)
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    [name]: '',
+                }))
+                setNotifMessage('Invalid input!')
+            }, 2000)
         }
     }
 
@@ -97,7 +107,7 @@ export default function Form() {
                         onKeyDown={preventNegative}
                         onChange={handleChange}
                         placeholder="Enter extracurricular hours"
-                        required={true}
+                        required
                     />
                     <InputField
                         label="Sleep hours per day:"
@@ -107,7 +117,7 @@ export default function Form() {
                         onKeyDown={preventNegative}
                         onChange={handleChange}
                         placeholder="Enter sleep hours"
-                        required={true}
+                        required
                     />
                     <InputField
                         label="Social hours per day:"
@@ -117,17 +127,17 @@ export default function Form() {
                         onKeyDown={preventNegative}
                         onChange={handleChange}
                         placeholder="Enter social hours"
-                        required={true}
+                        required
                     />
                     <InputField
                         label="Physical activity hours per day:"
-                        type="number"
+                        type="decimal"
                         name="physicalHours"
                         value={formData.physicalHours}
                         onKeyDown={preventNegative}
                         onChange={handleChange}
                         placeholder="Enter physical activity hours"
-                        required={true}
+                        required
                     />
                     <InputField
                         label="GPA:"
