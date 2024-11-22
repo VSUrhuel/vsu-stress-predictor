@@ -126,9 +126,9 @@ export default function Form() {
                         </svg>
                     </Tooltip>
                 </div>
-                <p className=" text-center   w-full mb-4 text-gray-500 lg:text-sm sm:px-16 xl:px-48 ">
+                {/* <p className=" text-center   w-full mb-4 text-gray-500 lg:text-sm sm:px-16 xl:px-48 ">
                     Fill in the form below and get your stress level.
-                </p>
+                </p> */}
                 <form className="md:w-[300px] lg:w-[520px] mx-auto">
                     <InputField
                         label="Study hours per day:"
