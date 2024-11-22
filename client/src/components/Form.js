@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import InputField from './InputField'
 import Notif from './Notif'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Tooltip, Button } from '@material-tailwind/react'
+import Pop from './Pop'
 export default function Form() {
     const [formData, setFormData] = useState({
         studyHours: 0,
@@ -14,32 +18,40 @@ export default function Form() {
     const [prediction, setPrediction] = useState('')
     const [notifMessage, setNotifMessage] = useState('')
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const { name, value } = e.target
-        console.log(value)
-        if (value >= 0 || value === '') {
+        const inputField = document.querySelector(`input[name="${name}"]`)
+
+        if (/[^0-9.,]+/.test(value)) {
+            toast.dismiss() // Dismiss the error toast
+            toast.error('Please enter a valid number')
+
+            setFormData({
+                ...formData,
+                [name]: '',
+            })
+            inputField.style.borderColor = 'red'
+        } else if (parseFloat(value) < 0) {
+            toast.dismiss() // Dismiss the error toast
+            toast.error('Please enter a positive number')
+            setFormData({
+                ...formData,
+                [name]: '',
+            })
+            inputField.style.borderColor = 'red'
+        } else if (parseFloat(value) > 0) {
+            toast.dismiss() // Dismiss the error toast
             setFormData({
                 ...formData,
                 [name]: value,
             })
-            setNotifMessage('') // Clear any existing notification
-        } else {
-            // Clear the input field
-            // Set the error message
-            setTimeout(() => {
-                document.getElementById(name).value = ''
-                console.log(document.getElementById(name).value)
-                setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    [name]: '',
-                }))
-                setNotifMessage('Invalid input!')
-            }, 2000)
+            inputField.style.borderColor = ''
         }
     }
 
     const preventNegative = (e) => {
         if (e.key === '-' || e.key === 'e' || e.key === '+' || e.key === '.') {
+            console.log('Invalid input')
             e.preventDefault()
         }
     }
@@ -78,15 +90,44 @@ export default function Form() {
 
     return (
         <div className="Absolute z-0">
-            {notifMessage && <Notif description={notifMessage} />}
+            <ToastContainer limit={1} /> {/* Add this line */}
             <div className="card mx-auto bloc items-center justify-center border-1 border-black  w-1/2">
                 <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center mt-6">
                     Stress Predictor
                 </h1>
-
-                <p className="mb-6 text-lg font-normal text-center text-gray-500 lg:text-xl sm:px-16 xl:px-48 ">
-                    Test your stress level by inputting the neccesary data in
-                    the web!
+                <div className="mb-6 text-lg font-normal text-center text-gray-500 lg:text-xl sm:px-16 xl:px-48 w-full flex justify-center items-center">
+                    Find out your stress level with our stress predictor model!
+                    <Tooltip
+                        placement="right-start" // Tooltip position
+                        interactive={true} // Keeps tooltip open when interacting with content
+                        dismiss={{
+                            enabled: true, // Enables dismiss functionality
+                            outsidePress: true, // Dismiss on outside click
+                            outsidePressEvent: 'click', // Trigger dismissal on click events
+                        }}
+                        content={<Pop />} // Pass the Pop component as content
+                    >
+                        <svg
+                            className="w-5 h-5 absolute cursor-pointer text-blue-gray-500 ml-60 mt-7 hover:text-black hover:fill-white"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                            />
+                        </svg>
+                    </Tooltip>
+                </div>
+                <p className=" text-center   w-full mb-4 text-gray-500 lg:text-sm sm:px-16 xl:px-48 ">
+                    Fill in the form below and get your stress level.
                 </p>
                 <form className="md:w-[300px] lg:w-[520px] mx-auto">
                     <InputField
@@ -153,13 +194,12 @@ export default function Form() {
                     <div className="justify-center flex w-full">
                         <button
                             type="submit"
-                            className="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w-full md:w-full px-5 py-2.5 text-center"
+                            className="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w/full md:w/full px-5 py-2.5 text-center"
                         >
                             PREDICT
                         </button>
                     </div>
                 </form>
-
                 {prediction && (
                     <div>
                         <h2>Prediction: {prediction}</h2>
