@@ -1,13 +1,20 @@
-import React from 'react';
-import { HiInformationCircle } from "react-icons/hi";
-import { Alert } from "flowbite-react";
+import React from 'react'
+import { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Notif = ({ description }) => {
-  return (
-    <Alert color="failure" icon={HiInformationCircle} onDismiss={() => alert("Notification Dismissed")}>
-      <span className="font-medium text-white">Error!</span> {description}
-    </Alert>
-  );
-};
+    useEffect(() => {
+        if (description) {
+            toast.error(description)
+        }
+    }, [description])
 
-export default Notif;
+    return (
+        <div className="z-50">
+            <ToastContainer className="z-auto" position="top-right" />
+        </div>
+    )
+}
+
+export default Notif
