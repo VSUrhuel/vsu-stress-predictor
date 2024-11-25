@@ -5,7 +5,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Tooltip, Button } from '@material-tailwind/react'
 import Pop from './Pop'
+import Modal from '../components/Modal'
 export default function Form() {
+    const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
         studyHours: '',
         extracurricularHours: '',
@@ -77,6 +79,7 @@ export default function Form() {
     }
 
     const handleSubmit = async (e) => {
+        setShowModal(true)
         e.preventDefault()
         const inputFeatures = [
             parseFloat(formData.studyHours),
@@ -245,6 +248,9 @@ export default function Form() {
                     </div>
                 )}
             </div>
+                <div className="absolute z-50">
+                    {showModal && <Modal onClose={()=> setShowModal(false)}/>}
+                </div>
         </div>
     )
 }

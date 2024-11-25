@@ -2,9 +2,12 @@
 import Form from '@/components/Form'
 import ParticlesComponent from '@/components/particles'
 import Modal from '../components/Modal'
+import { useState } from 'react'
 
 
 export default function Home() {
+
+  const [showModal, setShowModal] = useState(false);
     return (
         <div>
             <div className="flex justify-center">
@@ -23,7 +26,7 @@ export default function Home() {
                             © 2024{' '}
                             <a
                                 href="https://github.com/VSUrhuel/vsu-stress-predictor"
-                                class="hover:underline"
+                                className="hover:underline"
                             >
                                 Stress Predictor™
                             </a>
@@ -33,9 +36,7 @@ export default function Home() {
                 </div>
                 <div className="bg-white absolute z-10 w-full  h-[93%] -bottom-40 "></div>
             </div>
-            <div className="absolute z-50">
-      <Modal></Modal>
-      </div>
+            
         </div>
     )
 }
