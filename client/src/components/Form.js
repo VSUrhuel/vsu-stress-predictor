@@ -7,7 +7,7 @@ import { Tooltip, Button } from '@material-tailwind/react'
 import Pop from './Pop'
 import Modal from '../components/Modal'
 export default function Form() {
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false)
     const [formData, setFormData] = useState({
         studyHours: '',
         extracurricularHours: '',
@@ -79,7 +79,6 @@ export default function Form() {
     }
 
     const handleSubmit = async (e) => {
-        setShowModal(true)
         e.preventDefault()
         const inputFeatures = [
             parseFloat(formData.studyHours),
@@ -118,16 +117,39 @@ export default function Form() {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`)
             }
-
             // Parse the JSON response once
             const result = await response.json()
-            alert(result.prediction)
+
             setPrediction(result.prediction) // Use the parsed response
+            setShowModal(true)
         } catch (error) {
-            toast.error('An error occurred. Please try again later')
+            toast.error('An error occurred. ' + error)
         }
     }
 
+    useEffect(() => {
+        if (showModal) {
+            const timer = setTimeout(() => {
+                const inputFields = document.querySelectorAll('input')
+                inputFields.forEach((input) => {
+                    input.value = ''
+                })
+            }, 5000) // 5 seconds delay
+
+            // Cleanup the timeout if the component unmounts or showModal changes
+            return () => clearTimeout(timer)
+        } else {
+            setFormData({
+                studyHours: '',
+                extracurricularHours: '',
+                sleepHours: '',
+                socialHours: '',
+                physicalHours: '',
+                gpa: '',
+            })
+            setPrediction('')
+        }
+    }, [showModal])
     return (
         <div className="Absolute z-50 ">
             <ToastContainer /> {/* Add this line */}
@@ -248,9 +270,14 @@ export default function Form() {
                     </div>
                 )}
             </div>
-                <div className="absolute z-50">
-                    {showModal && <Modal onClose={()=> setShowModal(false)}/>}
-                </div>
+            <div className="absolute z-50">
+                {showModal && (
+                    <Modal
+                        onClose={() => setShowModal(false)}
+                        content={prediction}
+                    />
+                )}
+            </div>
         </div>
     )
 }
