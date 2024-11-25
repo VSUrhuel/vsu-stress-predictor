@@ -7,12 +7,12 @@ import { Tooltip, Button } from '@material-tailwind/react'
 import Pop from './Pop'
 export default function Form() {
     const [formData, setFormData] = useState({
-        studyHours: 0,
-        extracurricularHours: 0,
-        sleepHours: 0,
-        socialHours: 0,
-        physicalHours: 0,
-        gpa: 0,
+        studyHours: '',
+        extracurricularHours: '',
+        sleepHours: '',
+        socialHours: '',
+        physicalHours: '',
+        gpa: '',
     })
 
     const [prediction, setPrediction] = useState('')
@@ -57,8 +57,11 @@ export default function Form() {
             e.preventDefault()
         }
     }
+
+    var submitBtnClicked = 0
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        const submitBtn = document.getElementById('submitBtn')
+        submitBtn.disabled = true // Disable the button
 
         const inputFeatures = [
             parseFloat(formData.studyHours),
@@ -68,7 +71,23 @@ export default function Form() {
             parseFloat(formData.physicalHours),
             parseFloat(formData.gpa),
         ]
+
+        if (
+            formData.sleepHours === '' ||
+            formData.extracurricularHours === '' ||
+            formData.studyHours === '' ||
+            formData.socialHours === '' ||
+            formData.physicalHours === '' ||
+            formData.gpa === ''
+        ) {
+            toast.dismiss()
+            toast.error('Please fill in all fields')
+            submitBtn.disabled = false // Re-enable the button
+            return
+        }
+
         console.log(inputFeatures)
+
         try {
             const response = await fetch('http://localhost:8080/api/home', {
                 method: 'POST',
@@ -89,6 +108,8 @@ export default function Form() {
         } catch (error) {
             console.error('Error fetching prediction:', error)
         }
+
+        submitBtn.disabled = false // Re-enable the button
     }
 
     return (
@@ -196,6 +217,7 @@ export default function Form() {
 
                     <div className="justify-center flex w-full">
                         <button
+                            id="submitBtn"
                             type="submit"
                             onClick={handleSubmit}
                             className="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w/full md:w/full px-5 py-2.5 text-center"
