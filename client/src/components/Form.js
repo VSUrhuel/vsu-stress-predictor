@@ -7,12 +7,12 @@ import { Tooltip, Button } from '@material-tailwind/react'
 import Pop from './Pop'
 export default function Form() {
     const [formData, setFormData] = useState({
-        studyHours: 0,
-        extracurricularHours: 0,
-        sleepHours: 0,
-        socialHours: 0,
-        physicalHours: 0,
-        gpa: 0,
+        studyHours: '',
+        extracurricularHours: '',
+        sleepHours: '',
+        socialHours: '',
+        physicalHours: '',
+        gpa: '',
     })
 
     const [prediction, setPrediction] = useState('')
@@ -22,18 +22,19 @@ export default function Form() {
         const { name, value } = e.target
         const inputField = document.querySelector(`input[name="${name}"]`)
 
-        if (/[^0-9.,]+/.test(value)) {
-            toast.dismiss() // Dismiss the error toast
-            toast.error('Please enter a valid number')
+        toast.dismiss() // Dismiss the error toast
 
+        if (parseFloat(value) < 0) {
+            toast.dismiss() // Dismiss the error toast
+            toast.error('Please enter a positive number') // Display the error toast
             setFormData({
                 ...formData,
                 [name]: '',
             })
             inputField.style.borderColor = 'red'
-        } else if (parseFloat(value) < 0) {
+        } else if (/[^0-9.,]+/.test(value)) {
             toast.dismiss() // Dismiss the error toast
-            toast.error('Please enter a positive number')
+            toast.error('Please enter a valid number') // Display the error toast
             setFormData({
                 ...formData,
                 [name]: '',
@@ -46,6 +47,7 @@ export default function Form() {
                 [name]: value,
             })
             inputField.style.borderColor = ''
+            toast.dismiss()
         }
     }
 
@@ -55,8 +57,11 @@ export default function Form() {
             e.preventDefault()
         }
     }
+
+    var submitBtnClicked = 0
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        const submitBtn = document.getElementById('submitBtn')
+        submitBtn.disabled = true // Disable the button
 
         const inputFeatures = [
             parseFloat(formData.studyHours),
@@ -66,7 +71,23 @@ export default function Form() {
             parseFloat(formData.physicalHours),
             parseFloat(formData.gpa),
         ]
+
+        if (
+            formData.sleepHours === '' ||
+            formData.extracurricularHours === '' ||
+            formData.studyHours === '' ||
+            formData.socialHours === '' ||
+            formData.physicalHours === '' ||
+            formData.gpa === ''
+        ) {
+            toast.dismiss()
+            toast.error('Please fill in all fields')
+            submitBtn.disabled = false // Re-enable the button
+            return
+        }
+
         console.log(inputFeatures)
+
         try {
             const response = await fetch('http://localhost:8080/api/home', {
                 method: 'POST',
@@ -82,15 +103,18 @@ export default function Form() {
 
             // Parse the JSON response once
             const result = await response.json()
+            alert(result.prediction)
             setPrediction(result.prediction) // Use the parsed response
         } catch (error) {
             console.error('Error fetching prediction:', error)
         }
+
+        submitBtn.disabled = false // Re-enable the button
     }
 
     return (
-        <div className="Absolute z-0">
-            <ToastContainer limit={1} /> {/* Add this line */}
+        <div className="Absolute z-50">
+            <ToastContainer /> {/* Add this line */}
             <div className="card mx-auto bloc items-center justify-center border-1 border-black  w-1/2">
                 <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center mt-6">
                     Stress Predictor
@@ -126,9 +150,9 @@ export default function Form() {
                         </svg>
                     </Tooltip>
                 </div>
-                <p className=" text-center   w-full mb-4 text-gray-500 lg:text-sm sm:px-16 xl:px-48 ">
+                {/* <p className=" text-center   w-full mb-4 text-gray-500 lg:text-sm sm:px-16 xl:px-48 ">
                     Fill in the form below and get your stress level.
-                </p>
+                </p> */}
                 <form className="md:w-[300px] lg:w-[520px] mx-auto">
                     <InputField
                         label="Study hours per day:"
@@ -193,7 +217,9 @@ export default function Form() {
 
                     <div className="justify-center flex w-full">
                         <button
+                            id="submitBtn"
                             type="submit"
+                            onClick={handleSubmit}
                             className="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w/full md:w/full px-5 py-2.5 text-center"
                         >
                             PREDICT

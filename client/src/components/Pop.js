@@ -14,10 +14,10 @@ function Pop() {
                             based on quantifiable lifestyle information. It was
                             trained using a multi-layer neural network and
                             achieved a <span className="font-bold">99%</span>{' '}
-                            accuracy on the test data. Use with caution.
+                            accuracy on the test data.
                         </p>
                         <a
-                            href="#"
+                            href="https://github.com/VSUrhuel/vsu-stress-predictor"
                             className="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline"
                         >
                             Read more{' '}
