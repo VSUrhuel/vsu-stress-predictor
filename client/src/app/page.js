@@ -1,6 +1,8 @@
 'use client'
 import Form from '@/components/Form'
 import ParticlesComponent from '@/components/particles'
+import Modal from '../components/Modal'
+
 
 export default function Home() {
     return (
@@ -31,6 +33,9 @@ export default function Home() {
                 </div>
                 <div className="bg-white absolute z-10 w-full  h-[93%] -bottom-40 "></div>
             </div>
+            <div className="absolute z-50">
+      <Modal></Modal>
+      </div>
         </div>
     )
 }
