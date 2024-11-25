@@ -84,6 +84,7 @@ export default function Form() {
 
             // Parse the JSON response once
             const result = await response.json()
+            alert(result.prediction)
             setPrediction(result.prediction) // Use the parsed response
         } catch (error) {
             console.error('Error fetching prediction:', error)
@@ -196,6 +197,7 @@ export default function Form() {
                     <div className="justify-center flex w-full">
                         <button
                             type="submit"
+                            onClick={handleSubmit}
                             className="item text-white bg-[#FDC530] hover:bg-[#f9b700] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm font-bold w-full sm:w/full md:w/full px-5 py-2.5 text-center"
                         >
                             PREDICT
