@@ -1,8 +1,8 @@
 import React from 'react'
 function Pop() {
     return (
-        <div className="absolute z-50 inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-300 rounded-lg shadow-sm w-96 ">
-            <div className="grid grid-cols-5">
+        <div className="absolute z-50 inline-block lg:text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-300 rounded-lg shadow-sm lg:w-96 sm:w-36 sm:text-xs ">
+            <div className="grid lg:grid-cols-5 sm:grid-cols-2">
                 <div className="col-span-3 p-3">
                     <div className="space-y-2">
                         <h3 className="font-semibold text-gray-900 dark:text-white">
@@ -41,7 +41,7 @@ function Pop() {
                 </div>
                 <img
                     src="/neural-network.png"
-                    className="h-full col-span-2 rounded-r-lg rounded- object-cover"
+                    className="h-full col-span-2 lg:rounded-r-lg sm:rounded-b-lg sm:h-20  object-cover sm:w-full lg:h-full"
                     alt="Neural network"
                 />
             </div>
