@@ -13,7 +13,7 @@ export default function Home() {
          
           <div className="mt-10 w-full mb-24 absolute z-50">
             <Form></Form>
-            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400 mt-10">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+            <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400 mt-10">© 2024 <a href="https://github.com/VSUrhuel/vsu-stress-predictor" class="hover:underline">Stress Predictor™</a>. All Rights Reserved.</span>
 
           </div>
 
