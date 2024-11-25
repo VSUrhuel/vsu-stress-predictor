@@ -89,7 +89,7 @@ export default function Form() {
     }
 
     return (
-        <div className="Absolute z-0">
+        <div className="Absolute z-50">
             <ToastContainer limit={1} /> {/* Add this line */}
             <div className="card mx-auto bloc items-center justify-center border-1 border-black  w-1/2">
                 <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center mt-6">
