@@ -13,11 +13,15 @@ export default function Home() {
          
           <div className="mt-10 w-full mb-24 absolute z-50">
             <Form></Form>
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400 mt-10">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+
           </div>
 
           
         </div>
-        <div className="bg-white absolute z-10 w-full  h-3/4 -bottom-20 "></div>
+        <div className="bg-white absolute z-10 w-full  h-3/4 -bottom-20 ">
+
+        </div>
       </div>
     </div>
     )
