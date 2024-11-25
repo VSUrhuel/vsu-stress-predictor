@@ -15,7 +15,7 @@
     "@tsparticles/react": "^3.0.0",
     "flowbite-react": "^0.10.2",
     "framer-motion": "^11.11.17",
-    "next": "15.0.3",
+    "next": "^15.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-toastify": "^10.0.6"

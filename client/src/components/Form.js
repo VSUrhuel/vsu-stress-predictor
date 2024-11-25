@@ -22,18 +22,19 @@ export default function Form() {
         const { name, value } = e.target
         const inputField = document.querySelector(`input[name="${name}"]`)
 
-        if (/[^0-9.,]+/.test(value)) {
-            toast.dismiss() // Dismiss the error toast
-            toast.error('Please enter a valid number')
+        toast.dismiss() // Dismiss the error toast
 
+        if (parseFloat(value) < 0) {
+            toast.dismiss() // Dismiss the error toast
+            toast.error('Please enter a positive number') // Display the error toast
             setFormData({
                 ...formData,
                 [name]: '',
             })
             inputField.style.borderColor = 'red'
-        } else if (parseFloat(value) < 0) {
+        } else if (/[^0-9.,]+/.test(value)) {
             toast.dismiss() // Dismiss the error toast
-            toast.error('Please enter a positive number')
+            toast.error('Please enter a valid number') // Display the error toast
             setFormData({
                 ...formData,
                 [name]: '',
@@ -46,6 +47,7 @@ export default function Form() {
                 [name]: value,
             })
             inputField.style.borderColor = ''
+            toast.dismiss()
         }
     }
 
@@ -90,7 +92,7 @@ export default function Form() {
 
     return (
         <div className="Absolute z-50">
-            <ToastContainer limit={1} /> {/* Add this line */}
+            <ToastContainer /> {/* Add this line */}
             <div className="card mx-auto bloc items-center justify-center border-1 border-black  w-1/2">
                 <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center mt-6">
                     Stress Predictor
