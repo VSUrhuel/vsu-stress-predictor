@@ -79,12 +79,17 @@ function Modal({ onClose, content }) {
                         height={200}
                     ></img>
                 </div>
-                <div className=" px-20 py-10 flex flex-col gap-5 items-center mx-4">
-                    <h2 className={`text-3xl font-extrabold ${colorClass}`}>
+                <div className=" px-20 py-10 flex flex-col items-center mx-4">
+                    <h2
+                        className={`pb-0 text-3xl font-extrabold ${colorClass}`}
+                    >
                         {content !== undefined && content !== null
                             ? content.toUpperCase()
                             : 'No result available'}
                     </h2>
+                    <p className="text-center w-full mb-4 text-gray-500 text-xs">
+                        Stress Level
+                    </p>
                     <p className="text-center w-full text-gray-600 text-sm ">
                         {message}
                     </p>

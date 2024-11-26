@@ -134,7 +134,7 @@ export default function Form() {
                 inputFields.forEach((input) => {
                     input.value = ''
                 })
-            }, 5000) // 5 seconds delay
+            }, 1000) // 5 seconds delay
 
             // Cleanup the timeout if the component unmounts or showModal changes
             return () => clearTimeout(timer)
