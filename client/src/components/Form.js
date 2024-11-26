@@ -123,7 +123,9 @@ export default function Form() {
             setPrediction(result.prediction) // Use the parsed response
             setShowModal(true)
         } catch (error) {
-            toast.error('An error occurred. ' + error)
+            toast.error(
+                'The server is temporarily down. Please try again later'
+            )
         }
     }
 

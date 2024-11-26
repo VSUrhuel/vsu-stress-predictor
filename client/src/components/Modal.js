@@ -62,7 +62,7 @@ function Modal({ onClose, content }) {
             onClick={closeModal}
             className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center"
         >
-            <div className="bg-white mt-10 flex flex-col w-1.3 text-white rounded-xl overflow-hidden w-1/3">
+            <div className="bg-white mt-10 flex flex-col w-1.3 text-white rounded-xl overflow-hidden lg:w-1/3 sm:w-full md:w-1/2 ">
                 <div className="flex flex-row-reverse mr-2 mt-2">
                     <button
                         onClick={onClose}
@@ -73,13 +73,11 @@ function Modal({ onClose, content }) {
                 </div>
                 <div className="justify-center align-middle content-center flex">
                     <img
-                        className="pt-4"
+                        className="pt-4 sm:w-1/2 lg:w-1/3"
                         src={imageSrc}
-                        width={200}
-                        height={200}
                     ></img>
                 </div>
-                <div className=" px-20 py-10 flex flex-col items-center mx-4">
+                <div className=" px-20 py-10 flex flex-col items-center lg:mx-4">
                     <h2
                         className={`pb-0 text-3xl font-extrabold ${colorClass}`}
                     >
@@ -90,7 +88,7 @@ function Modal({ onClose, content }) {
                     <p className="text-center w-full mb-4 text-gray-500 text-xs">
                         Stress Level
                     </p>
-                    <p className="text-center w-full text-gray-600 text-sm ">
+                    <p className="text-center w-full text-gray-600 text-sm sm:p-0 sm:mx-0 ">
                         {message}
                     </p>
                 </div>
