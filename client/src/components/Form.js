@@ -123,7 +123,9 @@ export default function Form() {
             setPrediction(result.prediction) // Use the parsed response
             setShowModal(true)
         } catch (error) {
-            toast.error('An error occurred. ' + error)
+            toast.error(
+                'The server is temporarily down. Please try again later'
+            )
         }
     }
 
@@ -134,7 +136,7 @@ export default function Form() {
                 inputFields.forEach((input) => {
                     input.value = ''
                 })
-            }, 5000) // 5 seconds delay
+            }, 1000) // 5 seconds delay
 
             // Cleanup the timeout if the component unmounts or showModal changes
             return () => clearTimeout(timer)
@@ -263,6 +265,9 @@ export default function Form() {
                             PREDICT
                         </button>
                     </div>
+                    <p className="text-gray-500 text-sm text-center mt-2 mb-0 sm:text-xs">
+                        Note: Please proceed with caution.
+                    </p>
                 </form>
                 {prediction && (
                     <div>
