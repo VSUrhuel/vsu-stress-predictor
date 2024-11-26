@@ -265,6 +265,9 @@ export default function Form() {
                             PREDICT
                         </button>
                     </div>
+                    <p className="text-gray-500 text-sm text-center mt-2 mb-0 sm:text-xs">
+                        Note: Please proceed with caution.
+                    </p>
                 </form>
                 {prediction && (
                     <div>
