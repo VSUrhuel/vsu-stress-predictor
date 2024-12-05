@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 print("Loading model")
 
-model = load_model('./tfmodel1.keras')
+model = load_model('./bestModel.keras')
 
 def convert_grade_to_gpa(grade):
     """
